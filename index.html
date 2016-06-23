@@ -1,0 +1,40 @@
+<head>
+  <!-- This tells the browser how to read the document. -->
+  <meta charset="utf-8">
+
+  <!-- Tells the browser what the title of this page should be. -->
+  <title>Map Mashup</title>
+
+  <!-- Load the page styles. -->
+  <link href="css/style.css" rel="stylesheet">
+  <link  rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jQuery.min.js"></script>
+  <!--
+  Uncomment the <script> tag below when you're ready to add an interactive
+  Google Map to your resume!
+  -->
+  <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places"></script>
+ 
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+  <div class="container-fluid">
+    <div id="map"></div>
+    <div class='country-form'>
+      <form>
+        <input type="text" name="filter" id="filter"> 
+        <i class="fa fa-filter" aria-hidden="true"></i>
+        <input type="submit" name='filter'>
+      </form>
+      <form class="list-group country-lists" data-bind="foreach:parisobservable">
+        <button data-bind="text:$data.name, click:ajax"></button>
+      </form>
+    </div>
+  </div>
+   <script src="js/lib/knockout-3.2.0.js"></script>
+   <script src="js/map.js"></script>
+    <script src="viewmodel.js"></script>
+    
+</body>
+

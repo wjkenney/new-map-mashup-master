@@ -1,0 +1,48 @@
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.country-form{
+
+	position: absolute;
+
+	left: 30px;
+	top:28px;
+
+
+ 
+ overflow: hidden;
+}
+
+.country-list{
+  overflow: hidden;
+}
+
+nytimes-container {
+    padding: 10px;
+    margin-right:300px;
+    background-color: rgba(255,255,255,0.7);
+}
+
+button{
+  display: block;
+}
+.article-list {
+    margin: 0;
+    padding: 0;
+}
+
+.article {
+    list-style-type: none;
+    padding:10px;
+    border-top: 1px solid #CCC;
+}
+.article:first-child {
+    border-top:none;
+}
+
+#filter-form{
+
+  display: block;
+}
