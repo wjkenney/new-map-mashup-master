@@ -1,13 +1,17 @@
- var citylist=["the Louvre", "The White House", "The Gugenheim Museum"]
+ var citylist=[{"the Louvre":"museum"},
+                {"The White House": "landmark"}, 
+                {"The Gugenheim Museum": "museum"}, 
+                 {"Croke Park": "park"}]
 
 var ViewModel=function(){
-	console.log(map)
     var self=this;
+     console.log(map)
 	this.parisobservable=ko.observableArray([])
 	for (i=0, len=citylist.length; i<len;i++){
 		self.parisobservable.push(new Site(i))
 	}
-        if (map==undefined){
+
+    if (map==undefined){
         createmap(self.parisobservable());
      }  
     
@@ -16,16 +20,21 @@ var ViewModel=function(){
         //find the right Site object to manipulate
         //run ajax function using the site as input.  
 
-    //this.filter. 
+    this.filter=function(input, map){
+        for (element in self.parisobservable()){
+            self.parisobservable()[element].flag.setMap(null)
+        }
+    }
+
         //we will change our data to reflect different fields, (parks, monuments, and museums)
         //based on the filter options we will remove the fields no longer wanted
         //we will rerun flag creater
-        //flag creator will need to destroy existing flags and then build them up again. Maybe a this.flagDestroyer in Site
+        //flag creator will need to destroy existing flags and then build them up again. Maybe a this.flagDestroyer function in Site?
 }	
 
 var ajax= function(data, map){
         $.ajax({
-            url: 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ data.name()+'&sort=newest&api-key=523f1c00610445ff960176f1c052eaaf', 
+            url: 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ data.name+'&sort=newest&api-key=523f1c00610445ff960176f1c052eaaf', 
             success: function(response){
                 listarray=[];
                 i=0;
@@ -47,13 +56,12 @@ var ajax= function(data, map){
 
 var Site=function(index){
 	var self= this;
-	this.name=ko.observable(citylist[index])
+	this.name=Object.keys(citylist[index])
     this.flag;
     this.infoWindow;
 
 	
     this.flagCreator= function(map){
-        console.log(map)
         function createMapMarker(placeData) {
 
         // The next lines save location data from the search result object to local variables
@@ -122,7 +130,7 @@ var Site=function(index){
   
 
   // pinPoster(locations) creates pins on the map for each location in
-        pinPoster(self.name());
+        pinPoster(self.name);
         }
 
     }

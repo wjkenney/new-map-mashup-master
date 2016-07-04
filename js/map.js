@@ -11,12 +11,13 @@ Start here! initializeMap() is called when page is loaded.
     var locations;
 
     var mapOptions = {
-      disableDefaultUI: true,
+      size: '100%',
+      disableDefaultUI: true
     };
   
   //locationFinder() returns an array of every location string from the JSONs
   //written for bio, education, and work.
-    map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+    map = new google.maps.Map(document.querySelector('#mapdiv'), mapOptions);
     console.log(map);
   /*
   locationFinder() returns an array of every location string from the JSONs

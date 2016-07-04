@@ -1,3 +1,4 @@
+<html>
 <head>
   <!-- This tells the browser how to read the document. -->
   <meta charset="utf-8">
@@ -9,10 +10,6 @@
   <link href="css/style.css" rel="stylesheet">
   <link  rel="stylesheet" href="css/bootstrap.min.css">
   <script src="js/jQuery.min.js"></script>
-  <!--
-  Uncomment the <script> tag below when you're ready to add an interactive
-  Google Map to your resume!
-  -->
   <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places"></script>
  
@@ -20,21 +17,23 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div id="map"></div>
+    <div id="mapdiv"></div>
     <div class='country-form'>
-      <form>
-        <input type="text" name="filter" id="filter"> 
-        <i class="fa fa-filter" aria-hidden="true"></i>
-        <button>filter</button>
+      <form id='filter-form'>
+        <input type="text" name="Filter" id="filter" value='\f0b0'> 
+        Filter by typing museum, landmark or park
+        <input type="submit" value="filter" data-bind="submit:filter">
       </form>
       <form class="list-group country-lists" data-bind="foreach:parisobservable">
-        <button data-bind="text:$data.name, click:ajax"></button>
+        <input type="submit" data-bind="value:$data.name, submit:ajax">
       </form>
     </div>
   </div>
    <script src="js/lib/knockout-3.2.0.js"></script>
    <script src="js/map.js"></script>
     <script src="viewmodel.js"></script>
-    
-</body>
+  </body>
+</html>
+
+
 

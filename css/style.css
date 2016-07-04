@@ -1,4 +1,4 @@
-#map {
+#mapdiv {
   height: 100%;
   width: 100%;
 }
@@ -25,9 +25,14 @@ nytimes-container {
     background-color: rgba(255,255,255,0.7);
 }
 
-button{
+input[id='filter'] {
+  font-family: FontAwesome;
+}
+
+input{
   display: block;
 }
+
 .article-list {
     margin: 0;
     padding: 0;
