@@ -1,3 +1,9 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 #mapdiv {
   height: 100%;
   width: 100%;
@@ -9,8 +15,6 @@
 
 	left: 30px;
 	top:28px;
-
-
  
  overflow: hidden;
 }
@@ -19,18 +23,30 @@
   overflow: hidden;
 }
 
-nytimes-container {
-    padding: 10px;
-    margin-right:300px;
-    background-color: rgba(255,255,255,0.7);
-}
-
-input[id='filter'] {
-  font-family: FontAwesome;
-}
-
 input{
   display: block;
+}
+
+input[id='filtericon'] {
+  font-family: FontAwesome;
+  color: grey;
+  text-align: right;
+  display: flex;
+}
+
+.warning{
+  display: inline;
+  color: red;
+}
+
+
+
+input[id='filter']{
+  text-align: left;
+}
+
+.inlineblock{
+  display: inline-block;
 }
 
 .article-list {

@@ -1,39 +1,45 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <!-- This tells the browser how to read the document. -->
-  <meta charset="utf-8">
+    <!-- This tells the browser how to read the document. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Tells the browser what the title of this page should be. -->
-  <title>Map Mashup</title>
+    <!-- Tells the browser what the title of this page should be. -->
+    <title>Map Mashup</title>
 
-  <!-- Load the page styles. -->
-  <link href="css/style.css" rel="stylesheet">
-  <link  rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jQuery.min.js"></script>
-  <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places"></script>
- 
-  <meta name="viewport" content="width=device-width">
+    <!-- Load the page styles. -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
+
+    <!-- Load the page javascript-->
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places"></script>
+
 </head>
+
 <body>
-  <div class="container-fluid">
     <div id="mapdiv"></div>
     <div class='country-form'>
-      <form id='filter-form'>
-        <input type="text" name="Filter" id="filter" value='\f0b0'> 
-        Filter by typing museum, landmark or park
-        <input type="submit" value="filter" data-bind="submit:filter">
-      </form>
-      <form class="list-group country-lists" data-bind="foreach:parisobservable">
-        <input type="submit" data-bind="value:$data.name, submit:ajax">
-      </form>
+        <form id='filter-form' data-bind="submit:function(){filter(map)}">
+            <div class='inlineblock'>
+                <input type="text" name="Filter" id="filter" class='submitclass' data-bind='attr:{value: formvalue, id: idvalue}, click:focus'>
+            </div>
+            <div class='inlineblock'>
+                <input type="submit" id='filter-submit' class='submitclass' value="filter">
+            </div>
+        </form>
+        <p>Filter by typing museum, landmark or park</p>
+        <form class="list-group country-lists" data-bind="foreach:parisobservable">
+            <input type="submit" data-bind="value:$data.name, click:$data.listClicker">
+        </form>
     </div>
-  </div>
-   <script src="js/lib/knockout-3.2.0.js"></script>
-   <script src="js/map.js"></script>
+
+    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/map.js"></script>
     <script src="viewmodel.js"></script>
-  </body>
+</body>
+
 </html>
-
-
-

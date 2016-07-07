@@ -1,43 +1,31 @@
+// declares a global map variable
 var map;
-function createmap(list){
 
-     // declares a global map variable
+function createmap(list) {
 
-/*
-Start here! initializeMap() is called when page is loaded.
-*/
-  function initializeMap() {
+    //this code was stolen from resume.
+    function initializeMap() {
+        var locations;
+        var mapOptions = {
+            disableDefaultUI: true
+        };
+        
+        //creating the map
+        map = new google.maps.Map(document.querySelector('#mapdiv'), mapOptions);
 
-    var locations;
-
-    var mapOptions = {
-      size: '100%',
-      disableDefaultUI: true
-    };
-  
-  //locationFinder() returns an array of every location string from the JSONs
-  //written for bio, education, and work.
-    map = new google.maps.Map(document.querySelector('#mapdiv'), mapOptions);
-    console.log(map);
-  /*
-  locationFinder() returns an array of every location string from the JSONs
-  written for bio, education, and work.
-  */
-
-    for (element in list){
-        list[element].flagCreator(map)
+        //here we are going to put the flags in for each location in our list and resize the map accordingly
+        for (element in list) {
+            list[element].flagCreator(map)
+        }
     }
-  }
-      
-
-// Calls the initializeMap() function when the page loads
+    // Calls the initializeMap() function when the page loads
     window.addEventListener('load', initializeMap);
 
-// Vanilla JS way to listen for resizing of the window
-// and adjust map bounds
+    // Vanilla JS way to listen for resizing of the window
+    // and adjust map bounds
     window.addEventListener('resize', function(e) {
-  //Make sure the map bounds get updated on page resize
-      map.fitBounds(mapBounds);
-    });
-  }
 
+        //Make sure the map bounds get updated on page resize
+        map.fitBounds(mapBounds);
+    });
+}
