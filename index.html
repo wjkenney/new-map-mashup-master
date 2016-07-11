@@ -16,29 +16,30 @@
 
     <!-- Load the page javascript-->
     <script src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places"></script>
+    <script src="js/map.js"></script>
+    <script async defer type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaXNMPxj7nsp7zpJIPiV4ka3FhFH3ht6A&libraries=places" onerror='googleError()'></script>
 
 </head>
 
-<body>
+<body data-bind="click:clickwrapper">
     <div id="mapdiv"></div>
     <div class='country-form'>
-        <form id='filter-form' data-bind="submit:function(){filter(map)}">
+        <form id='filter-form'>
             <div class='inlineblock'>
-                <input type="text" name="Filter" id="filter" class='submitclass' data-bind='attr:{value: formvalue, id: idvalue}, click:focus'>
+                <input type="text" name="Filter" id="filter" class='submitclass' data-bind='attr:{id: idvalue, placeholder:icon}, textInput: formvalue, hasFocus:focus'>
             </div>
             <div class='inlineblock'>
-                <input type="submit" id='filter-submit' class='submitclass' value="filter">
+                <input type="submit" id='filter-submit' class='submitclass' value="filter" data-bind="event:{mousedown:md}, click: function(){filter(map)}">
             </div>
+            <div class="warning" data-bind="text:warning"></div>
         </form>
         <p>Filter by typing museum, landmark or park</p>
-        <form class="list-group country-lists" data-bind="foreach:parisobservable">
+        <form class="country-lists" data-bind="foreach:parisobservable">
             <input type="submit" data-bind="value:$data.name, click:$data.listClicker">
         </form>
     </div>
-
+    </div>
     <script src="js/lib/knockout-3.2.0.js"></script>
-    <script src="js/map.js"></script>
     <script src="js/viewmodel.js"></script>
 </body>
 

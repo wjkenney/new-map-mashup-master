@@ -28,4 +28,10 @@ function createmap(list) {
         //Make sure the map bounds get updated on page resize
         map.fitBounds(mapBounds);
     });
+
 }
+
+function googleError(){
+        console.log('caling error')
+        $('body').append("<h3>Oh no! GoogleMaps is not Working!</h3>")
+    }
