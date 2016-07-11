@@ -1,6 +1,6 @@
 # frontend-nanodegre-neigborhoodmap
 
-Please have fun checking out my maps nytimes mashup!  Feel free to suggested changes and bug fixes. C
+Open index.html in your browser and have fun checking out my maps nytimes mashup!  Feel free to suggested changes and bug fixes.
 
 # Contribution
 Please feel free to make changes!
