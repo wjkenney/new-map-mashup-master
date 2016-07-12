@@ -22,22 +22,25 @@
 </head>
 
 <body data-bind="click:clickwrapper">
-    <div id="mapdiv"></div>
     <div class='country-form'>
         <form id='filter-form'>
             <div class='inlineblock'>
-                <input type="text" name="Filter" id="filter" class='submitclass' data-bind='attr:{id: idvalue, placeholder:icon}, textInput: formvalue, hasFocus:focus'>
+                <input type="text" name="Filter" id="filter" class='submitclass' data-bind='attr:{id: idvalue, placeholder:("&#xf0b0")}, textInput: formvalue, hasFocus:focus'>
             </div>
             <div class='inlineblock'>
-                <input type="submit" id='filter-submit' class='submitclass' value="filter" data-bind="event:{mousedown:md}, click: function(){filter(map)}">
+                <input type="submit" id='filter-submit' class='btn btn-primary' value="filter" data-bind="event:{mousedown:md}, click: function(){filter(map)}">
             </div>
             <div class="warning" data-bind="text:warning"></div>
         </form>
-        <p>Filter by typing museum, landmark or park</p>
+        <p>Filter by typing museum, landmark, park or field</p>
         <form class="country-lists" data-bind="foreach:parisobservable">
-            <input type="submit" data-bind="value:$data.name, click:$data.listClicker">
+            <div class='button-format'>
+                <input type="submit" class="btn btn-default country-buttons" data-bind="value:$data.name, click:$data.listClicker">
+            </div>
         </form>
     </div>
+    <div class='outermapdiv'>
+        <div id="mapdiv"></div>
     </div>
     <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/viewmodel.js"></script>

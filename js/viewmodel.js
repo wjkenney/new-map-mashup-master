@@ -1,31 +1,66 @@
 var citylist = [{
-    "the Louvre": ["museum", "landmark"]
+    "name": "The Louvre",
+    "type": ["museum", "landmark"]
 }, {
-    "The White House": ["landmark"]
+    "name": "The White House",
+    "type": ["landmark"]
 }, {
-    "The Gugenheim Museum": ["museum"]
+    "name": "The Gugenheim Museum",
+    "type": ["museum"]
 }, {
-    "Croke Park": ["park"]
+    "name": "Croke Park",
+    "type": ["park"]
 }, {
-    "Gran Paradiso Park": ["park"]
+    "name": "Gran Paradiso Park",
+    "type": ["park"]
 }];
 
 //we push site objects onto our list array.  This is what we are going to be manipulating in the program
 var ViewModel = function() {
     var self = this;
+    self.formvalue = ko.observable();
+    self.warning = ko.observable('');
+
+    self.filteredlist = ko.computed(function() {
+        var fulllist = [];
+        var newarray = [];
+        citylist.forEach(function(location) {
+            fulllist.push(location.name);
+        });
+        console.log(self.formvalue());
+        if (self.formvalue() === undefined || self.formvalue() === "") {
+            return fulllist;
+        }
+
+        for (var i = 0, len = citylist.length; i < len; i++) {
+            fvalue = self.formvalue().toLowerCase();
+            console.log(fvalue);
+            if (fvalue == citylist[i].name.toLowerCase()) {
+                newarray.push(citylist[i].name);
+                return newarray;
+            }
+            for (var type in citylist[i].type) {
+                newval = citylist[i].type[type];
+                value = self.formvalue().toLowerCase();
+                if (newval == value) {
+                    newarray.push(citylist[i].name);
+                }
+            }
+        }
+        return newarray;
+    });
+
     self.parisobservable = ko.observableArray([]);
-    for (i = 0, len = citylist.length; i < len; i++) {
-        self.parisobservable.push(new Site(Object.keys(citylist[i])[0]));
+    for (var i = 0, len = self.filteredlist().length; i < len; i++) {
+        self.parisobservable.push(new Site(self.filteredlist()[i]));
     }
     //not sure this line is necessary, but just to make sure our map is only created once.
-    if (map == undefined) {
+    if (map === undefined) {
         createmap(self.parisobservable());
     }
 
     self.idvalue = ko.observable('filtericon');
     self.icon = ko.observable('\uf0b0');
-    self.formvalue = ko.observable();
-    self.warning = ko.observable('');
 
     // To make icon \ufobo disappear we have a hasfocus tag which toggles focus 'flag' from true to false.
     // this function is wrapped in a global click event function which tracks all click events on the page.
@@ -40,14 +75,12 @@ var ViewModel = function() {
     };
 
     self.clickwrapper = function() {
-        if (self.focus() == true) {
+        if (self.focus() === true) {
             self.warning('');
-            self.icon('');
             self.idvalue('filter');
-        } else if (self.iconflag == false) {
-            if (self.formvalue() == undefined || self.formvalue() == '') {
+        } else if (self.iconflag === false) {
+            if (self.formvalue() === undefined || self.formvalue() === '') {
                 self.idvalue('filtericon');
-                self.icon('\uf0b0');
             }
         }
         self.iconflag = false;
@@ -55,48 +88,29 @@ var ViewModel = function() {
     };
 
 
-    //this function changes data to reflect different fields, (parks, monuments, and museums)
-    //we will delete all fields
-    //we will rerun flag creater with new filtered list 
-    self.filter = function(map) {
-        self.focus(false);
-        value = self.formvalue();
-        if (value == undefined){
-            self.warning('please pick park, landmark or museum');
-            return;
-        }
-        filteredlist = [];
-        citylist.forEach(function(obj) {
-            for (key in obj) {
-                newval = obj[key];
-                newval.forEach(function(type) {
-                    value = value.toLowerCase();
-                    if (type == value) {
-                        filteredlist.push(Object.keys(obj));
-                    }
-                });
-            }
-        });
-        //User gets a message should they mistype search query
-        if (filteredlist.length == 0) {
-            self.warning('please pick park, landmark or museum');
-            return;
-        }
 
-        for (element in self.parisobservable()) {
+    self.filter = function(map) {
+        console.log(self.formvalue());
+        self.focus(false)
+
+        ;
+        if (self.filteredlist().length === 0) {
+            self.warning('please pick park, landmark or museum');
+            return;
+        }
+        for (var element in self.parisobservable()) {
             self.parisobservable()[element].flag.setMap(null);
         }
         self.parisobservable.removeAll();
-        for (i = 0, len = filteredlist.length; i < len; i++) {
-            self.parisobservable.push(new Site(filteredlist[i][0]));
+        for (var i = 0, len = self.filteredlist().length; i < len; i++) {
+            self.parisobservable.push(new Site(self.filteredlist()[i]));
         }
         for (element in self.parisobservable()) {
             self.parisobservable()[element].flagCreator(map);
         }
+
     };
-
 };
-
 
 //ajax getting links from the NY times and putting it in a nice url list.   
 var ajax = function(data, map) {
@@ -107,21 +121,21 @@ var ajax = function(data, map) {
             var i = 0;
 
             if ($(window).width() > 780) {
-                for (element in response.response.docs) {
+                for (var element in response.response.docs) {
                     listarray[i] = "<li class='nytimes-container'><a href=" + response.response.docs[element].web_url + ">" + response.response.docs[element].headline.main + "</a></li>";
                     i++;
                 }
             } else if ($(window).width() > 400) {
-                for (element in response.response.docs) {
+                for (var element in response.response.docs) {
                     truncatedarray = response.response.docs[element].headline.main.slice(0, 40);
                     if (response.response.docs[element].headline.main.length > 40) {
-                        truncatedarray += "..."
+                        truncatedarray += "...";
                     }
                     listarray[i] = "<li class='nytimes-container'><a href=" + response.response.docs[element].web_url + ">" + truncatedarray + "</a></li>";
-                    i++
+                    i++;
                 }
             } else {
-                for (element in response.response.docs) {
+                for (var element in response.response.docs) {
                     if (i == 4) {
                         break;
                     }
@@ -136,15 +150,13 @@ var ajax = function(data, map) {
             }
             var liststring = "<ul id='nytimes-articles'>" + listarray.join('') + "</ul></div>";
 
-
+            console.log(infoWindow);
             //data.infowindow is the this.infoWindow the Site object in our list array
-            data.infoWindow = new google.maps.InfoWindow({
-                content: liststring
-            });
-            data.infoWindow.open(map, data.flag);
+            infoWindow.setContent(liststring);
+            infoWindow.open(map, data.flag);
         },
         error: function() {
-            alert("whoops ! something went wrng with ny times");
+            alert("whoops ! something went wrong with ny times");
         }
     });
 };
@@ -157,15 +169,18 @@ var Site = function(city) {
     self.name = city;
     self.flag;
     self.infoWindow;
-}
+};
 
 Site.prototype.listClicker = function() {
-    var self = this
+    var self = this;
+    for (element in vm.parisobservable()) {
+        console.log(vm.parisobservable()[element])
+    }
     self.flag.setAnimation(google.maps.Animation.BOUNCE);
     ajax(self, map);
     setTimeout(function() {
-        self.flag.setAnimation(null)
-    }, 3000)
+        self.flag.setAnimation(null);
+    }, 3000);
 };
 //this map code was stolen from the resume project and then adapted for the assignment
 Site.prototype.flagCreator = function(map) {
@@ -187,7 +202,7 @@ Site.prototype.flagCreator = function(map) {
 
         //here we have the event listener for the triggering out ajax call.  
         google.maps.event.addListener(self.flag, 'click', function() {
-            ajax(self, map);
+            self.listClicker();
         });
 
         // this is where the pin actually gets added to the map.
@@ -243,5 +258,5 @@ Site.prototype.flagCreator = function(map) {
 
 
 //here we are just addind a pointer to our viewmodel allowing us to access it from outside the viewmodel.  
-var vm = new ViewModel()
+var vm = new ViewModel();
 ko.applyBindings(vm);

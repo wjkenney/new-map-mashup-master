@@ -1,5 +1,10 @@
 // declares a global map variable
 var map;
+var infoWindow;
+
+function createInfo(map){
+    infoWindow = new google.maps.InfoWindow();
+}
 
 function createmap(list) {
 
@@ -13,9 +18,10 @@ function createmap(list) {
         //creating the map
         map = new google.maps.Map(document.querySelector('#mapdiv'), mapOptions);
 
+        createInfo(map);
         //here we are going to put the flags in for each location in our list and resize the map accordingly
-        for (element in list) {
-            list[element].flagCreator(map)
+        for (var element in list) {
+            list[element].flagCreator(map);
         }
     }
     // Calls the initializeMap() function when the page loads
@@ -32,6 +38,6 @@ function createmap(list) {
 }
 
 function googleError(){
-        console.log('caling error')
-        $('body').append("<h3>Oh no! GoogleMaps is not Working!</h3>")
+        $('body').append("<h3>Oh no! GoogleMaps is not Working!</h3>");
     }
+

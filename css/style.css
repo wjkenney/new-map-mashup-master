@@ -1,11 +1,15 @@
-html, body{
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-h3{
+p{
+    font-size: small;
+}
 
+h3 {
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -13,73 +17,98 @@ h3{
     text-align: center;
     color: red;
 }
-
+.outermapdiv {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 100%;
+    width: 80%;
+    right: 0;
+}
 #mapdiv {
-  height: 100%;
-  width: 100%;
+    height: 100%;
 }
-
-.country-form{
-
-	position: absolute;
-
-	left: 30px;
-	top:28px;
- 
- overflow: hidden;
+.country-buttons {
+    display: block;
 }
-
-.country-list{
-  overflow: hidden;
+.country-form {
+    padding: 5px;
+    width: 19%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
 }
-
-input{
-  display: block;
+@media screen and (max-width: 1000px) {
+    .country-form {
+        background: white;
+        display: inline-block;
+        padding: 15px;
+        padding-top: 0px;
+        margin-bottom: 15px;
+        min-width: 740px;
+        width: 100%;
+        left: 0px;
+        top: 28px;
+        overflow: hidden;
+    }
+    .outermapdiv {
+        width: 100%;
+    }
 }
-
+input {
+    display: block;
+}
+.button-format {
+    display: block;
+}
+@media screen and (max-width: 1000px) {
+    .button-format {
+        display: inline-block;
+    }
+}
+.country-list {
+    overflow: hidden;
+    min-width: 740px;
+}
 input[id='filtericon'] {
-  font-family: FontAwesome;
-  color: grey;
-  text-align: right;
-  display: flex;
+    font-family: FontAwesome;
+    color: grey;
+    text-align: right;
+    display: flex;
+    width: 200px
 }
-
-.warning{
-  display: inline;
-  color: red;
+.warning {
+    display: inline;
+    color: red;
 }
-
-
-
-input[id='filter']{
-  text-align: left;
+input[id='filter'] {
+    text-align: left;
+    width: 200px;
 }
-
-.inlineblock{
-  display: inline-block;
+.inlineblock {
+    display: inline-block;
 }
-
-@media screen and (max-width: 500px){
-  .country-lists{
-    display: none;
-  }
+@media screen and (max-width: 400px) {
+    .country-lists {
+        display: none;
+    }
 }
-
 .article-list {
     margin: 0;
     padding: 0;
 }
-
 .article {
     list-style-type: none;
-    padding:10px;
+    padding: 10px;
     border-top: 1px solid #CCC;
 }
 .article:first-child {
-    border-top:none;
+    border-top: none;
 }
-
-#filter-form{
-
-  display: block;
+#filter-form {
+    display: block;
+}
+#filter::-webkit-input-placeholder {
+    font-family: FontAwesome;
+    color: transparent;
 }
